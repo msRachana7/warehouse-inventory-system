@@ -92,3 +92,17 @@ From `frontend/`:
 npm.cmd test -- --watch=false
 npm.cmd run build
 ```
+
+## Deploy the frontend to Vercel
+
+Import the repository into Vercel and set the project Root Directory to `frontend`.
+The Vercel configuration writes the static build from `dist/frontend/browser` and
+rewrites `/` and client-side routes to Angular's `index.csr.html`. Static assets and
+`/api/...` paths are not routed to the Angular fallback.
+
+The production API URL in `src/environments/environment.ts` is intentionally empty
+because no public backend URL has been configured. Set it to the deployed Spring Boot
+API base URL before deploying if the frontend should load live data. The development
+environment continues to use `http://localhost:8080/api`. The backend must also allow
+the deployed Vercel origin through CORS; deploy the Spring Boot API and its database
+separately from this static frontend.
